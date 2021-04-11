@@ -1,5 +1,14 @@
+import { Route, Switch } from 'react-router';
+import Pokedex from './components/Pokedex';
+import Pokemon from './components/PokemonDetails';
+
 function App() {
-  return <div className="App">hello world</div>;
+  return (
+    <Switch>
+      <Route exact path="/" render={(props) => <Pokedex {...props} />} />
+      <Route exact path="/:id" render={(props) => <Pokemon {...props} />} />
+    </Switch>
+  );
 }
 
 export default App;
