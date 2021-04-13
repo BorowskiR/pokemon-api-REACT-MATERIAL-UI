@@ -11,10 +11,7 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import mockData from '../mockData';
-
-function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
+import { capitalizeFirstLetter } from '../helpers/capitalizeName';
 
 const useStyles = makeStyles({
   pokedexContainer: {
