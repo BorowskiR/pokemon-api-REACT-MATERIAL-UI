@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   AppBar,
   Toolbar,
@@ -12,6 +12,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import mockData from '../mockData';
 import { capitalizeFirstLetter } from '../helpers/capitalizeName';
+import axios from 'axios';
 
 const useStyles = makeStyles({
   pokedexContainer: {
@@ -28,6 +29,27 @@ const useStyles = makeStyles({
 function Pokedex(props) {
   const [pokemonData, setPokemonData] = useState(mockData);
   const { history } = props;
+
+  useEffect(() => {
+    axios.get(`https://pokeapi.co/api/v2/pokemon?limit=50`).then((res) => {
+      const { data } = res;
+      const { results } = data;
+
+      const newPokemonData = {};
+
+      results.forEach((pokemon, idx) => {
+        newPokemonData[idx + 1] = {
+          id: idx + 1,
+          name: pokemon.name,
+          sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
+            idx + 1
+          }.png`,
+        };
+      });
+
+      setPokemonData(newPokemonData);
+    });
+  }, []);
 
   const classes = useStyles();
 
